@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-ENV NEXUS_VERSION=3.2.1-01 \
+ENV NEXUS_VERSION=3.2.1-01-unix \
     JAVA_VERSION=8.121.13-r0 \
     SUEXEC_VERSION=0.2-r0 \
     JAVA_MAX_MEM=1200m \
@@ -10,11 +10,11 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-VOLUME /data
-
 ADD ./resources /resources
 
 RUN /resources/build && rm -rf resources
+
+VOLUME /data
 
 ENTRYPOINT []
 

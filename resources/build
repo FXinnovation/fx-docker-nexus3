@@ -1,45 +1,50 @@
 #!/bin/sh
+set -e -x
 ###
 # Installing Install Tools
 ###
-apk add --no-cache \
+apk add -U --no-cache \
   curl \
   tar
 ###
 # Installing dependencies
 ###
-apk add --no-cache \
-  openjdk=${JAVA_VERSION} \
+apk add -U --no-cache \
+  openjdk8=${JAVA_VERSION} \
   su-exec=${SUEXEC_VERSION}
 ###
 # Downloading Nexus
 ###
 curl --silent --location --retry 3 \
-  -o /resources/nexus-${NEXUS_VERSION}.tar.gz
-  https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
+  -o /resources/nexus-${NEXUS_VERSION}.tar.gz \
+  https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}.tar.gz
 ###
 # Installing Nexus
 ###
 mkdir -p /opt/sonatype/nexus
-tar -xzf --strip-components=1 nexus-${NEXUS_VERSION} \
+tar --strip-components=1 \
   -C /opt/sonatype/nexus \
-  /resources/nexus-${NEXUS_VERSION}.tar.gz
+  -xzf /resources/nexus-${NEXUS_VERSION}.tar.gz
 chown -R root:root /opt/sonatype/nexus
+addgroup -S nexus
 adduser \
   -h /data \
   -s /bin/false \
-  -u 200 \
+  -G nexus \
+  -S \
+  -D \
   nexus
 ###
 # Configuring Nexus
 ###
-mkdir -p /data/etc /data/log /data/tmp /opt/sonatype/sonatype-work
-ls -s /data /opt/sonatype/sonatype-work/nexus3
+mkdir -p /opt/sonatype/sonatype-work
+ln -s /data /opt/sonatype/sonatype-work/nexus3
+mkdir -p /data/etc /data/log /data/tmp
 chown -R nexus:nexus /data
 ###
 # Configuring Entrypoint
 ###
-mv /resources/entrypoint /usr/local/bin/entrypoint
+#mv /resources/entrypoint /usr/local/bin/entrypoint
 ###
 # Removing Install Tools
 ###
