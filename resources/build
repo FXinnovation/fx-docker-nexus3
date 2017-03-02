@@ -44,7 +44,7 @@ chown -R nexus:nexus /data
 ###
 # Configuring Entrypoint
 ###
-#mv /resources/entrypoint /usr/local/bin/entrypoint
+mv /resources/entrypoint /usr/local/bin/entrypoint
 ###
 # Removing Install Tools
 ###

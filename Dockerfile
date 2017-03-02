@@ -16,7 +16,11 @@ RUN /resources/build && rm -rf resources
 
 VOLUME /data
 
-ENTRYPOINT []
+EXPOSE 8081
+
+WORKDIR /opt/sonatype/nexus
+
+ENTRYPOINT ["entrypoint"]
 
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.name"="nexus3" \
