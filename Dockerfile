@@ -37,4 +37,4 @@ LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.vcs-ref"=$VCS_REF \
       "org.label-schema.version"=$VERSION \
       "org.label-schema.build-date"=$BUILD_DATE \
-      "org.label-schema.usage"=""
+      "org.label-schema.usage"="docker run -d -v [PATH_TO_DATA]:/data fxinnovation/nexus3:${VERSION}"
