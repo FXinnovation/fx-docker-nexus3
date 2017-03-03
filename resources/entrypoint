@@ -3,8 +3,9 @@ set -e -x
 ###
 # Changing Permissions
 ###
-mkdir -p /data/etc /data/log /data/tmp
+mkdir -p /data/{tmp,log,etc}
 chown -R nexus:nexus /data
+
 ###
 # Launching nexus
 ###
