@@ -25,7 +25,7 @@ ENTRYPOINT ["entrypoint"]
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.name"="nexus3" \
       "org.label-schema.base-image.name"="docker.io/library/alpine" \
-      "org.label-schema.base-image.version"="3.5" \
+      "org.label-schema.base-image.version"="3.8" \
       "org.label-schema.description"="Sonatype Nexus 3 in a container" \
       "org.label-schema.url"="https://www.sonatype.com/nexus-repository-oss" \
       "org.label-schema.vcs-url"="https://bitbucket.org/fxadmin/public-common-docker-nexus3" \
