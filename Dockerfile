@@ -1,7 +1,7 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
-ENV NEXUS_VERSION=3.9.0-01-unix \
-    JAVA_VERSION=8.151.12-r0 \
+ENV NEXUS_VERSION=3.13.0-01-unix \
+    JAVA_VERSION=8.171.11-r0 \
     SUEXEC_VERSION=0.2-r0 \
     JAVA_MAX_MEM=1200m \
     JAVA_MIN_MEM=1200m
@@ -25,7 +25,7 @@ ENTRYPOINT ["entrypoint"]
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.name"="nexus3" \
       "org.label-schema.base-image.name"="docker.io/library/alpine" \
-      "org.label-schema.base-image.version"="3.5" \
+      "org.label-schema.base-image.version"="3.8" \
       "org.label-schema.description"="Sonatype Nexus 3 in a container" \
       "org.label-schema.url"="https://www.sonatype.com/nexus-repository-oss" \
       "org.label-schema.vcs-url"="https://bitbucket.org/fxadmin/public-common-docker-nexus3" \
