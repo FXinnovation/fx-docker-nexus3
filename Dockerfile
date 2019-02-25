@@ -10,7 +10,11 @@ ARG VERSION
 
 ADD ./resources /resources
 
+USER root
+
 RUN /resources/build && rm -rf resources
+
+USER nexus
 
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.name"="nexus3" \
