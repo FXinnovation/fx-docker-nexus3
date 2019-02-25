@@ -1,4 +1,4 @@
-FROM sonatype/nexus:3.15.2
+FROM sonatype/nexus3:3.15.2
 
 ENV NEXUS_PLUGINS=${NEXUS_HOME}/system \
     KEYCLOAK_PLUGIN_VERSION="0.3.2-SNAPSHOT" \
