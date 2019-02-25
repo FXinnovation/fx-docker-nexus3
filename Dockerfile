@@ -1,10 +1,8 @@
-FROM alpine:3.8
+FROM sonatype/nexus3:3.15.2
 
-ENV NEXUS_VERSION=3.13.0-01-unix \
-    JAVA_VERSION=8.171.11-r0 \
-    SUEXEC_VERSION=0.2-r0 \
-    JAVA_MAX_MEM=1200m \
-    JAVA_MIN_MEM=1200m
+ENV NEXUS_PLUGINS=${NEXUS_HOME}/system \
+    KEYCLOAK_PLUGIN_VERSION="0.3.2-SNAPSHOT" \
+    KEYCLOAK_PLUGIN="org.github.flytreeleft/nexus3-keycloak-plugin/${KEYCLOAK_PLUGIN_VERSION}"
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -12,29 +10,23 @@ ARG VERSION
 
 ADD ./resources /resources
 
+USER root
+
 RUN /resources/build && rm -rf resources
 
-VOLUME /data
-
-EXPOSE 8081
-
-WORKDIR /opt/sonatype/nexus
-
-ENTRYPOINT ["entrypoint"]
+USER nexus
 
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
       "org.label-schema.name"="nexus3" \
-      "org.label-schema.base-image.name"="docker.io/library/alpine" \
-      "org.label-schema.base-image.version"="3.8" \
+      "org.label-schema.base-image.name"="sonatype/nexus3" \
+      "org.label-schema.base-image.version"="3.15.2" \
       "org.label-schema.description"="Sonatype Nexus 3 in a container" \
       "org.label-schema.url"="https://www.sonatype.com/nexus-repository-oss" \
       "org.label-schema.vcs-url"="https://bitbucket.org/fxadmin/public-common-docker-nexus3" \
       "org.label-schema.vendor"="FXinnovation" \
       "org.label-schema.schema-version"="1.0.0-rc.1" \
-      "org.label-schema.applications.nexus.version"=$NEXUS_VERSION \
-      "org.label-schema.applications.java.version"=$JAVA_VERSION \
-      "org.label-schema.applications.su-exec.version"=$SUEXEC_VERSION \
+      "org.label-schema.applications.nexus.version"="3.15.2" \
       "org.label-schema.vcs-ref"=$VCS_REF \
       "org.label-schema.version"=$VERSION \
       "org.label-schema.build-date"=$BUILD_DATE \
-      "org.label-schema.usage"="docker run -d -v [PATH_TO_DATA]:/data fxinnovation/nexus3:${VERSION}"
+      "org.label-schema.usage"="docker run -d -v [PATH_TO_DATA]:/nexus-data fxinnovation/nexus3:${VERSION}"
