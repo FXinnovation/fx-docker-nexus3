@@ -1,63 +1,7 @@
 #!/bin/sh
 set -e -x
-###
-# Installing Install Tools
-###
-apk add -U --no-cache \
-  curl \
-  tar
 
-###
-# Installing dependencies
-###
-apk add -U --no-cache \
-  openjdk8=${JAVA_VERSION} \
-  su-exec=${SUEXEC_VERSION}
+curl -Ssl -o ${NEXUS_PLUGINS}/org/github/flytreeleft/nexus3-keycloak-plugin/${KEYCLOAK_PLUGIN_VERSION}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar https://github.com/flytreeleft/nexus3-keycloak-plugin/releases/download/${KEYCLOAK_PLUGIN_VERSION}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar
 
-###
-# Downloading Nexus
-###
-curl --silent --location --retry 3 \
-  -o /resources/nexus-${NEXUS_VERSION}.tar.gz \
-  https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}.tar.gz
-
-###
-# Installing Nexus
-###
-mkdir -p /opt/sonatype/nexus
-tar --strip-components=1 \
-  -C /opt/sonatype/nexus \
-  -xzf /resources/nexus-${NEXUS_VERSION}.tar.gz
-chown -R root:root /opt/sonatype/nexus
-
-###
-# Creating nexus user
-###
-addgroup -S nexus
-adduser \
-  -h /data \
-  -s /bin/false \
-  -G nexus \
-  -S \
-  -D \
-  nexus
-
-###
-# Configuring Nexus
-###
-mkdir -p /opt/sonatype/sonatype-work
-ln -s /data /opt/sonatype/sonatype-work/nexus3
-mkdir -p /data/{tmp,log,etc}
-chown -R nexus:nexus /data
-
-###
-# Configuring Entrypoint
-###
-mv /resources/entrypoint /usr/local/bin/entrypoint
-
-###
-# Removing Install Tools
-###
-apk del \
-  curl \
-  tar
+chmod 644 ${NEXUS_PLUGINS}/org/github/flytreeleft/nexus3-keycloak-plugin/${KEYCLOAK_PLUGIN_VERSION}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar
+echo "mvn\\:${KEYCLOAK_PLUGIN} = 200" >> ${NEXUS_HOME}/etc/karaf/startup.properties
