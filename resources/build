@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e -x
-
-mkdir -p ${NEXUS_PLUGINS}
-curl -Ssl \
-  -o ${NEXUS_PLUGINS}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar \
+KEYCLOAK_PLUGIN_DIR="${NEXUS_PLUGINS}/com/github/flytreeleft/nexus3-keycloak-plugin"
+mkdir -p ${KEYCLOAK_PLUGIN_DIR}
+curl -sSL \
+  -o ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar \
   "https://github.com/flytreeleft/nexus3-keycloak-plugin/releases/download/${KEYCLOAK_PLUGIN_VERSION}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar"
 
-chmod 644 ${NEXUS_PLUGINS}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar
-echo "reference\\:file\\nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar = 200" >> ${NEXUS_HOME}/etc/karaf/startup.properties
+chmod 644 ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar
+echo "reference\:file\:com/github/flytreeleft/nexus3-keycloak-plugin/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar = 200" >> ${NEXUS_HOME}/etc/karaf/startup.properties
 
 chown -R nexus:nexus /opt/sonatype
