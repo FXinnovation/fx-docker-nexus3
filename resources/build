@@ -2,6 +2,12 @@
 set -e -x
 KEYCLOAK_PLUGIN_DIR="${NEXUS_PLUGINS}/com/github/flytreeleft/nexus3-keycloak-plugin"
 mkdir -p ${KEYCLOAK_PLUGIN_DIR}
+
+# The following is because you cannot load a configmap as a single file but as a directory
+mkdir -p /opt/sonatype/mnt
+touch /opt/sonatype/mnt/keycloak.json
+ln -s /opt/sonaypte/mnt/keycloak.json ${NEXUS_HOME}/etc/keycloak.json
+
 curl -sSL \
   -o ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar \
   "https://github.com/flytreeleft/nexus3-keycloak-plugin/releases/download/${KEYCLOAK_PLUGIN_VERSION}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar"
