@@ -16,7 +16,6 @@ echo "reference\:file\:com/github/flytreeleft/nexus3-keycloak-plugin/nexus3-keyc
 
 # Install apt plugin
 
-
 # Install helm plugin
 
 # Making sure everything is owned by nexus
