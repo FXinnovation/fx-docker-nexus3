@@ -1,12 +1,11 @@
 #!/bin/sh
 set -e -x
+
+# Install keycloak plugin
 KEYCLOAK_PLUGIN_DIR="${NEXUS_PLUGINS}/com/github/flytreeleft/nexus3-keycloak-plugin"
 mkdir -p ${KEYCLOAK_PLUGIN_DIR}
 
-# The following is because you cannot load a configmap as a single file but as a directory
-mkdir -p /opt/sonatype/mnt
-touch /opt/sonatype/mnt/keycloak.json
-ln -s /opt/sonaypte/mnt/keycloak.json ${NEXUS_HOME}/etc/keycloak.json
+ln -s /nexus-data/keycloak ${NEXUS_HOME}/etc/keycloak.json
 
 curl -sSL \
   -o ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar \
@@ -15,4 +14,10 @@ curl -sSL \
 chmod 644 ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar
 echo "reference\:file\:com/github/flytreeleft/nexus3-keycloak-plugin/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar = 200" >> ${NEXUS_HOME}/etc/karaf/startup.properties
 
+# Install apt plugin
+
+
+# Install helm plugin
+
+# Making sure everything is owned by nexus
 chown -R nexus:nexus /opt/sonatype
