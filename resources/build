@@ -5,7 +5,7 @@ set -e -x
 KEYCLOAK_PLUGIN_DIR="${NEXUS_PLUGINS}/com/github/flytreeleft/nexus3-keycloak-plugin"
 mkdir -p ${KEYCLOAK_PLUGIN_DIR}
 
-ln -s /nexus-data/keycloak ${NEXUS_HOME}/etc/keycloak.json
+ln -s /nexus-data/keycloak.json ${NEXUS_HOME}/etc/keycloak.json
 
 curl -sSL \
   -o ${KEYCLOAK_PLUGIN_DIR}/nexus3-keycloak-plugin-${KEYCLOAK_PLUGIN_VERSION}.jar \
