@@ -11,6 +11,8 @@ ADD ./resources /resources
 
 USER root
 
+RUN /resources/build && rm -rf resources
+
 USER nexus
 
 LABEL "maintainer"="cloudsquad@fxinnovation.com" \
