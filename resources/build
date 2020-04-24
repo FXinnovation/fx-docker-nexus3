@@ -20,3 +20,17 @@ set -e -x
 
 # Making sure everything is owned by nexus
 chown -R nexus:nexus /opt/sonatype
+
+# Hardening
+chmod 644 /etc/passwd
+
+sed -i -e "s/^PASS_MAX_DAYS\s\+99999/PASS_MAX_DAYS   60/" /etc/login.defs
+sed -i -e "s/^PASS_MIN_DAYS\s\+0/PASS_MIN_DAYS	7/" /etc/login.defs
+sed -i -e "s/^UMASK\s\+022/UMASK	027/" /etc/login.defs
+
+echo "ENV_SUPATH	PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" >> /etc/login.defs
+echo "ENV_PATH	PATH=/usr/local/bin:/usr/bin:/bin" >> /etc/login.defs
+echo "LOGIN_RETRIES	5" >> /etc/login.defs
+echo "LOGIN_TIMEOUT	60" >> /etc/login.defs
+chmod 0444 /etc/login.defs
+
