@@ -3,6 +3,8 @@
 ==================
 
   * chore: pins sonatype/nexus3 base image to 3.33.0
+  * chore: add .pre-commit-config file.
+  * doc: add CHANGELOG.md file.
 
 2.0.0 / 2020-04-24
 ==================
